@@ -29,10 +29,11 @@ Future<Map<String, dynamic>> apiRequest({
   required String type,
   bool? overrideTimeout,
 }) async {
+  final String connectionString = "${server.connectionMethod}://${server.domain}${server.port != null ? ':${server.port}' : ""}${server.path ?? ""}/control$urlPath";
   try {
     HttpClient httpClient = HttpClient();
     if (method == 'get') {
-      HttpClientRequest request = await httpClient.getUrl(Uri.parse("${server.connectionMethod}://${server.domain}${server.path ?? ""}${server.port != null ? ':${server.port}' : ""}/control$urlPath"));
+      HttpClientRequest request = await httpClient.getUrl(Uri.parse(connectionString));
       request.headers.set('Authorization', 'Basic ${server.authToken}');
       HttpClientResponse response = overrideTimeout == true 
         ? await request.close()
@@ -57,7 +58,7 @@ Future<Map<String, dynamic>> apiRequest({
       }    
     }
     else if (method == 'post') {
-      HttpClientRequest request = await httpClient.postUrl(Uri.parse("${server.connectionMethod}://${server.domain}${server.path ?? ""}${server.port != null ? ':${server.port}' : ""}/control$urlPath"));
+      HttpClientRequest request = await httpClient.postUrl(Uri.parse(connectionString));
       request.headers.set('Authorization', 'Basic ${server.authToken}');
       request.headers.set('content-type', 'application/json');
       request.add(utf8.encode(json.encode(body)));
@@ -274,7 +275,7 @@ Future getServerStatus(Server server) async {
         'stats': jsonDecode(result[0]['body']),
         'clients': jsonDecode(result[6]['body'])['clients'],
         'generalEnabled': jsonDecode(result[1]['body']),
-        'filteringEnabled': jsonDecode(result[2]['body']),
+        'filtering': jsonDecode(result[2]['body']),
         'safeSearchEnabled': jsonDecode(result[3]['body']),
         'safeBrowsingEnabled': jsonDecode(result[4]['body']),
         'parentalControlEnabled': jsonDecode(result[5]['body']),

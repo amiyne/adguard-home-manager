@@ -100,7 +100,7 @@ class LogTile extends StatelessWidget {
                             color: Theme.of(context).listTileTheme.textColor,
                           ),
                           const SizedBox(width: 5),
-                          SizedBox(
+                          Flexible(
                             child: Text(
                               log.client,
                               overflow: TextOverflow.ellipsis,
@@ -121,9 +121,9 @@ class LogTile extends StatelessWidget {
                             color: Theme.of(context).listTileTheme.textColor,
                           ),
                           const SizedBox(width: 5),
-                          SizedBox(
+                          Flexible(
                             child: Text(
-                              formatTimestampUTCFromAPI(log.time, 'HH:mm:ss'),
+                              convertTimestampLocalTimezone(log.time, 'HH:mm:ss'),
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: Theme.of(context).listTileTheme.textColor,
@@ -144,7 +144,7 @@ class LogTile extends StatelessWidget {
                               color: Theme.of(context).listTileTheme.textColor,
                             ),
                             const SizedBox(width: 15),
-                            SizedBox(
+                            Flexible(
                               child: Text(
                                 log.client,
                                 overflow: TextOverflow.ellipsis,
@@ -166,7 +166,7 @@ class LogTile extends StatelessWidget {
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                               ),
                               const SizedBox(width: 15),
-                              SizedBox(
+                              Flexible(
                                 child: Text(
                                   log.clientInfo!.name,
                                   overflow: TextOverflow.ellipsis,
@@ -190,7 +190,7 @@ class LogTile extends StatelessWidget {
                             const SizedBox(width: 15),
                             SizedBox(
                               child: Text(
-                                formatTimestampUTCFromAPI(log.time, 'HH:mm:ss'),
+                                convertTimestampLocalTimezone(log.time, 'HH:mm:ss'),
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: Theme.of(context).listTileTheme.textColor,
